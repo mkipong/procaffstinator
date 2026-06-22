@@ -69,7 +69,7 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
 
   return (
     <div
-      className="min-h-screen"
+      className="min-h-screen overflow-x-hidden"
       style={{ backgroundImage: buildBackground(board.color, board.pattern) }}
     >
       <BoardHeader
@@ -88,12 +88,12 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
         />
       )}
 
-      <div className="p-6">
-        <div className="flex gap-4 mb-6">
+      <div className="p-3 sm:p-6">
+        <div className="flex gap-4 mb-4 sm:mb-6">
           <SearchBar cards={allCards} onSearch={setFilteredCards} />
         </div>
 
-        <div className="flex gap-4 overflow-x-auto pb-4 items-start">
+        <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-4 items-start">
           {board.lists && board.lists.length > 0 ? (
             board.lists.map((list) => (
               <List
@@ -115,7 +115,7 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
           {showAddList ? (
             <form
               onSubmit={handleAddList}
-              className="flex-shrink-0 w-80 bg-white/20 backdrop-blur-sm rounded-xl p-3 flex flex-col gap-2"
+              className="flex-shrink-0 w-[17rem] sm:w-80 bg-white/20 backdrop-blur-sm rounded-xl p-3 flex flex-col gap-2"
             >
               <input
                 ref={inputRef}
@@ -146,7 +146,7 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
           ) : (
             <button
               onClick={openAddList}
-              className="flex-shrink-0 w-80 h-12 bg-white/20 hover:bg-white/30 text-white rounded-xl flex items-center justify-center gap-2 font-medium text-sm transition-all"
+              className="flex-shrink-0 w-[17rem] sm:w-80 h-12 bg-white/20 hover:bg-white/30 text-white rounded-xl flex items-center justify-center gap-2 font-medium text-sm transition-all"
             >
               <Plus size={18} />
               Add another list

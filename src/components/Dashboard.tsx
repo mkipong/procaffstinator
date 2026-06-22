@@ -59,14 +59,14 @@ function saveDashSettings(s: DashSettings) {
 // ── Sub-components ─────────────────────────────────────────────────────────────
 function StatCard({ icon, label, value }: { icon: string; label: string; value: number }) {
   return (
-    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-5 shadow-sm flex items-center gap-4">
-      <div className="w-12 h-12 rounded-xl bg-white/80 flex items-center justify-center shadow-sm flex-shrink-0">
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 sm:p-5 shadow-sm flex items-center gap-3 sm:gap-4">
+      <div className="w-14 h-14 sm:w-12 sm:h-12 rounded-xl bg-white/80 flex items-center justify-center shadow-sm flex-shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={icon} alt="" className="w-7 h-7 object-contain" />
+        <img src={icon} alt="" className="w-9 h-9 sm:w-7 sm:h-7 object-contain" />
       </div>
       <div>
-        <p className="text-2xl font-bold text-gray-900 leading-none">{value}</p>
-        <p className="text-xs text-gray-500 mt-0.5">{label}</p>
+        <p className="text-3xl sm:text-2xl font-bold text-gray-900 leading-none">{value}</p>
+        <p className="text-xs text-gray-500 mt-1">{label}</p>
       </div>
     </div>
   );
@@ -211,16 +211,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
     >
       {/* ── Top nav ── */}
       <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-2 sm:gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/icons/icons8-kawaii-coffee-100.png" alt="" className="w-9 h-9" />
+          <img src="/icons/icons8-kawaii-coffee-100.png" alt="" className="w-10 h-10 sm:w-9 sm:h-9 flex-shrink-0" />
           <div>
-            <p className="font-bold text-gray-900 leading-tight">ProCaffstinator</p>
-            <p className="text-xs text-gray-400 leading-tight">Procrastinate Productively</p>
+            <p className="font-bold text-gray-900 leading-tight text-sm sm:text-base">ProCaffstinator</p>
+            <p className="text-xs text-gray-400 leading-tight hidden sm:block">Procrastinate Productively</p>
           </div>
 
-          <div className="ml-auto flex items-center gap-2">
-            <div className="flex items-center gap-1.5 text-gray-500 mr-2">
+          <div className="ml-auto flex items-center gap-1 sm:gap-2">
+            <div className="hidden sm:flex items-center gap-1.5 text-gray-500 mr-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/icons/icons8-kawaii-folders-100.png" alt="" className="w-5 h-5 object-contain" />
               <span className="text-sm font-medium text-gray-600">Dashboard</span>
@@ -230,24 +230,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
             <button
               onClick={() => supabase.auth.signOut()}
               title="Sign out"
-              className="p-2 rounded transition-colors hover:bg-gray-100"
+              className="p-2.5 rounded-lg transition-colors hover:bg-gray-100"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/icons/icons8-logout-100.png" alt="Sign out" className="w-5 h-5 object-contain opacity-60 hover:opacity-100" />
+              <img src="/icons/icons8-logout-100.png" alt="Sign out" className="w-6 h-6 sm:w-5 sm:h-5 object-contain opacity-60" />
             </button>
 
             {/* ── Settings gear ── */}
             <div className="relative" ref={settingsRef}>
               <button
                 onClick={() => setShowSettings((v) => !v)}
-                className={`p-2 rounded transition-colors ${showSettings ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
+                className={`p-2.5 rounded-lg transition-colors ${showSettings ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/icons/icons8-gear-100.png" alt="Settings" className="w-6 h-6 object-contain" />
+                <img src="/icons/icons8-gear-100.png" alt="Settings" className="w-7 h-7 sm:w-6 sm:h-6 object-contain" />
               </button>
 
               {showSettings && (
-                <div className="absolute right-0 top-12 w-96 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
+                <div className="absolute right-0 top-12 w-[min(22rem,calc(100vw-1rem))] bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
                   {/* Panel header */}
                   <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
                     <span className="font-semibold text-gray-800 text-sm">Dashboard Settings</span>
@@ -344,7 +344,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
       </div>
 
       {/* ── Body ── */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
 
         {/* Stats row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">

@@ -49,7 +49,7 @@ export const List: React.FC<ListProps> = ({ list, onEditCard, fontHeading, fontC
 
   return (
     <>
-      <div className="list bg-gray-100 rounded-lg p-3 min-h-96 w-80 flex-shrink-0 flex flex-col">
+      <div className="list bg-gray-100 rounded-lg p-3 min-h-96 w-[17rem] sm:w-80 flex-shrink-0 flex flex-col">
         <div className="flex justify-between items-center mb-3">
           <h2 className="font-bold text-gray-900" style={{ fontFamily: fontHeading }}>{list.title}</h2>
           <button

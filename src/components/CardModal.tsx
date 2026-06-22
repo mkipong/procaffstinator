@@ -90,17 +90,17 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-full max-w-2xl max-h-screen overflow-y-auto shadow-xl">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end sm:items-center justify-center z-50">
+      <div className="bg-white rounded-t-2xl sm:rounded-lg w-full max-w-2xl max-h-[92vh] sm:max-h-screen overflow-y-auto shadow-xl">
         {/* Header */}
-        <div className="sticky top-0 flex justify-between items-center p-6 border-b bg-white">
-          <h2 className="text-xl font-bold text-gray-900">Card Details</h2>
-          <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded transition-colors">
+        <div className="sticky top-0 flex justify-between items-center p-4 sm:p-6 border-b bg-white">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">Card Details</h2>
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <X size={24} className="text-gray-600" />
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-5 sm:space-y-6">
           {/* Title */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Title</label>
@@ -149,7 +149,7 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
           </div>
 
           {/* Due Date & Label */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                 <Calendar size={16} />

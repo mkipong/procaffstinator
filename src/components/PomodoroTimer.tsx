@@ -65,7 +65,7 @@ export const PomodoroTimer: React.FC = () => {
 
       {/* ── Expanded panel ── */}
       {open && (
-        <div className="w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+        <div className="w-[min(18rem,calc(100vw-3.5rem))] bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
 
           {/* Header */}
           <div className={`flex items-center justify-between px-4 py-3 ${MODE_BG[mode]} border-b`}>

@@ -167,28 +167,28 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
 
   return (
     <div className="bg-white shadow-sm border-b">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-4 flex justify-between items-center gap-2">
 
         {/* ── Left ── */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
           {/* App brand */}
-          <div className="flex items-center gap-2 pr-3 border-r border-gray-200">
+          <div className="flex items-center gap-1.5 sm:gap-2 pr-2 sm:pr-3 border-r border-gray-200 flex-shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/icons/icons8-kawaii-coffee-100.png" alt="ProCaffstinator" className="w-8 h-8" />
-            <span className="font-bold text-gray-800 text-sm hidden sm:block tracking-tight">ProCaffstinator</span>
+            <img src="/icons/icons8-kawaii-coffee-100.png" alt="ProCaffstinator" className="w-9 h-9 sm:w-8 sm:h-8" />
+            <span className="font-bold text-gray-800 text-sm hidden md:block tracking-tight">ProCaffstinator</span>
           </div>
 
           {/* Home / dashboard button */}
           <button
             onClick={() => setCurrentBoardId(null)}
             title="Back to Dashboard"
-            className="p-2 hover:bg-gray-100 rounded transition-colors"
+            className="p-2.5 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
           >
-            <Home size={20} className="text-gray-500" />
+            <Home size={22} className="text-gray-500" />
           </button>
 
-          <button onClick={onShowBoardList} className="p-2 hover:bg-gray-100 rounded transition-colors">
-            <Menu size={24} className="text-gray-600" />
+          <button onClick={onShowBoardList} className="p-2.5 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0">
+            <Menu size={22} className="text-gray-600" />
           </button>
 
           {editingTitle ? (
@@ -198,15 +198,15 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
               onChange={(e) => setNewTitle(e.target.value)}
               onBlur={handleUpdateTitle}
               onKeyDown={(e) => e.key === 'Enter' && handleUpdateTitle()}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 font-bold text-xl"
+              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 font-bold text-base sm:text-xl min-w-0 flex-1"
               autoFocus
             />
           ) : (
-            <div className="flex items-center gap-2">
-              {board.emoji && <EmojiDisplay value={board.emoji} size={28} />}
+            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+              {board.emoji && <EmojiDisplay value={board.emoji} size={24} />}
               <h1
                 onClick={() => setEditingTitle(true)}
-                className="text-2xl font-bold text-gray-900 cursor-pointer hover:text-blue-600 transition-colors"
+                className="text-base sm:text-xl font-bold text-gray-900 cursor-pointer hover:text-blue-600 transition-colors truncate max-w-[120px] sm:max-w-xs md:max-w-none"
                 style={{ fontFamily: board.font_heading || DEFAULT_FONTS.heading }}
               >
                 {board.title}
@@ -216,15 +216,15 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
         </div>
 
         {/* ── Right ── */}
-        <div className="flex items-center gap-3">
-          <span className="hidden sm:flex items-center gap-1.5 text-xs text-green-600 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full font-medium">
+        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+          <span className="hidden lg:flex items-center gap-1.5 text-xs text-green-600 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full font-medium">
             <Wifi size={12} />
             Saved to DB
           </span>
 
           <button
             onClick={onAddList}
-            className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            className="hidden sm:flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
           >
             <Plus size={20} />
             Add List
@@ -234,23 +234,23 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
           <button
             onClick={() => supabase.auth.signOut()}
             title="Sign out"
-            className="p-2 rounded transition-colors hover:bg-gray-100"
+            className="p-2.5 rounded-lg transition-colors hover:bg-gray-100"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/icons/icons8-logout-100.png" alt="Sign out" className="w-5 h-5 object-contain opacity-60 hover:opacity-100" />
+            <img src="/icons/icons8-logout-100.png" alt="Sign out" className="w-6 h-6 sm:w-5 sm:h-5 object-contain opacity-60" />
           </button>
 
           {/* ── Settings panel ── */}
           <div className="relative" ref={settingsRef}>
             <button
               onClick={() => setShowSettings((v) => !v)}
-              className={`p-2 rounded transition-colors ${showSettings ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
+              className={`p-2.5 rounded-lg transition-colors ${showSettings ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
             >
               <Settings size={24} className="text-gray-600" />
             </button>
 
             {showSettings && (
-              <div className="absolute right-0 top-12 w-96 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
+              <div className="fixed sm:absolute right-2 sm:right-0 top-14 sm:top-12 w-[min(24rem,calc(100vw-1rem))] bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
 
                 {/* Panel header */}
                 <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
