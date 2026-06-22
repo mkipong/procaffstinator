@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { BILUM_PATTERN } from '@/lib/patterns';
 
 export const LoginPage: React.FC = () => {
   const [email,    setEmail]    = useState('');
@@ -24,7 +23,7 @@ export const LoginPage: React.FC = () => {
     <div
       className="min-h-screen flex items-center justify-center p-4"
       style={{
-        backgroundImage: `${BILUM_PATTERN}, linear-gradient(135deg, #a855f7, #7c3aed, #4338ca)`,
+        backgroundImage: 'linear-gradient(135deg, #a855f7, #7c3aed, #4338ca)',
       }}
     >
       <div className="w-full max-w-sm">
