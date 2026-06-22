@@ -148,11 +148,12 @@ export const useBoardStore = create<BoardStore>((set) => ({
 
         // Add card to new list
         if (card) {
+          const foundCard = card; // capture narrowed Card (not Card | undefined) for closure
           const finalLists = updatedLists.map((l) =>
             l.id === newListId
               ? {
                   ...l,
-                  cards: [...(l.cards || []), { ...card, list_id: newListId, position: newPosition }],
+                  cards: [...(l.cards || []), { ...foundCard, list_id: newListId, position: newPosition }],
                 }
               : l
           );

@@ -73,7 +73,7 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
       description,
       label,
       priority,
-      due_date: dueDate || null,
+      due_date: dueDate || undefined,
       updated_at: new Date().toISOString(),
     };
 

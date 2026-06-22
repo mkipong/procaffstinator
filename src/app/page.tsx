@@ -164,7 +164,7 @@ export default function Home() {
             <h1 className="text-2xl font-bold text-gray-900">Database Setup Required</h1>
           </div>
           <p className="text-gray-500 mb-6">
-            Your Supabase project is connected but the tables don't exist yet. Copy the SQL below and run it in your Supabase SQL Editor — it only takes 30 seconds.
+            Your Supabase project is connected but the tables don&apos;t exist yet. Copy the SQL below and run it in your Supabase SQL Editor — it only takes 30 seconds.
           </p>
 
           <div className="bg-gray-50 rounded-lg border border-gray-200 mb-4">

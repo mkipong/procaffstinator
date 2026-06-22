@@ -428,7 +428,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
         {boards.length === 0 && !showForm && (
           <div className="text-center py-16">
             <p className="text-white/70 text-lg mb-2">No boards yet</p>
-            <p className="text-white/50 text-sm">Click "New Board" to get started</p>
+            <p className="text-white/50 text-sm">Click &quot;New Board&quot; to get started</p>
           </div>
         )}
       </div>
