@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { X, RotateCcw, Play, Pause, ChevronDown, ChevronUp } from 'lucide-react';
+import { RotateCcw, Play, Pause } from 'lucide-react';
+import { FlatIcon } from '@/components/FlatIcon';
 
 type Mode = 'work' | 'short' | 'long';
 
@@ -75,10 +76,10 @@ export const PomodoroTimer: React.FC = () => {
             </div>
             <div className="flex items-center gap-1">
               <button onClick={() => setOpen(false)} className="p-1 text-gray-400 hover:text-gray-600 rounded">
-                <ChevronDown size={15} />
+                <FlatIcon name="angle-down" className="w-4 h-4 opacity-60" />
               </button>
               <button onClick={() => { setOpen(false); stop(); setRunning(false); }} className="p-1 text-gray-400 hover:text-gray-600 rounded">
-                <X size={15} />
+                <FlatIcon name="cross" className="w-4 h-4 opacity-60" />
               </button>
             </div>
           </div>
@@ -166,7 +167,7 @@ export const PomodoroTimer: React.FC = () => {
         )}
         {/* Tiny up indicator when open */}
         {open && !running && (
-          <ChevronUp size={10} className="absolute -top-0.5 text-gray-400" />
+          <FlatIcon name="angle-down" className="absolute -top-0.5 w-2.5 h-2.5 rotate-180 opacity-40" />
         )}
       </button>
     </div>

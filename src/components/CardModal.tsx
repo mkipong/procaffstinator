@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, MessageSquare, Calendar, Tag, AlertCircle } from 'lucide-react';
+import { MessageSquare, Tag } from 'lucide-react';
+import { FlatIcon } from '@/components/FlatIcon';
 import { Card as CardType, useBoardStore } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 
@@ -96,7 +97,7 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
         <div className="sticky top-0 flex justify-between items-center p-4 sm:p-6 border-b bg-white">
           <h2 className="text-lg sm:text-xl font-bold text-gray-900">Card Details</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <X size={24} className="text-gray-600" />
+            <FlatIcon name="cross" className="w-6 h-6 opacity-60" />
           </button>
         </div>
 
@@ -129,7 +130,7 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
           {/* Priority */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-              <AlertCircle size={16} />
+              <FlatIcon name="exclamation" className="w-4 h-4 opacity-60" />
               Priority
             </label>
             <div className="flex gap-2">
@@ -152,7 +153,7 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                <Calendar size={16} />
+                <FlatIcon name="calendar" className="w-4 h-4 opacity-60" />
                 Due Date
               </label>
               <input

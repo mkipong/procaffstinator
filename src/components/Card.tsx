@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Trash2, MessageSquare, Calendar, Tag } from 'lucide-react';
+import { MessageSquare, Tag } from 'lucide-react';
+import { FlatIcon } from '@/components/FlatIcon';
 import { Card as CardType } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 import { useBoardStore } from '@/lib/store';
@@ -72,7 +73,7 @@ export const Card: React.FC<CardProps> = ({ card, onEdit, fontCard, fontBody }) 
             onClick={handleDelete}
             className="p-1 hover:bg-red-100 rounded transition-colors"
           >
-            <Trash2 size={14} className="text-red-500" />
+            <FlatIcon name="trash" className="w-3.5 h-3.5 opacity-70" />
           </button>
         )}
       </div>
@@ -85,7 +86,7 @@ export const Card: React.FC<CardProps> = ({ card, onEdit, fontCard, fontBody }) 
         )}
         {card.due_date && (
           <div className={`flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${dueDateStyle(card.due_date)}`}>
-            <Calendar size={11} />
+            <FlatIcon name="calendar" className="w-3 h-3 opacity-70" />
             <span>{formatDate(card.due_date)}</span>
           </div>
         )}

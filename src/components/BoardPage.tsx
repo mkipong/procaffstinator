@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, X } from 'lucide-react';
+import { FlatIcon } from '@/components/FlatIcon';
 import { Board as BoardType, List as ListType, Card as CardType, useBoardStore } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 import { BoardHeader } from '@/components/BoardHeader';
@@ -139,7 +139,7 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
                   onClick={cancelAddList}
                   className="p-2 text-white hover:bg-white/20 rounded-lg transition-colors"
                 >
-                  <X size={18} />
+                  <FlatIcon name="cross" className="w-[18px] h-[18px] invert" />
                 </button>
               </div>
             </form>
@@ -148,7 +148,7 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
               onClick={openAddList}
               className="flex-shrink-0 w-[17rem] sm:w-80 h-12 bg-white/20 hover:bg-white/30 text-white rounded-xl flex items-center justify-center gap-2 font-medium text-sm transition-all"
             >
-              <Plus size={18} />
+              <FlatIcon name="add" className="w-[18px] h-[18px] invert" />
               Add another list
             </button>
           )}

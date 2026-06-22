@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, Menu, Settings, Trash2, Palette, X, AlignLeft, Wifi, Type, Home, Grid } from 'lucide-react';
+import { Palette, AlignLeft, Type, Grid } from 'lucide-react';
+import { FlatIcon } from '@/components/FlatIcon';
 import { Board, useBoardStore } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 import { PATTERNS, BILUM_PATTERN } from '@/lib/patterns';
@@ -184,11 +185,11 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
             title="Back to Dashboard"
             className="p-2.5 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
           >
-            <Home size={22} className="text-gray-500" />
+            <FlatIcon name="home" className="w-5 h-5 opacity-60" />
           </button>
 
           <button onClick={onShowBoardList} className="p-2.5 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0">
-            <Menu size={22} className="text-gray-600" />
+            <FlatIcon name="menu-burger" className="w-5 h-5 opacity-60" />
           </button>
 
           {editingTitle ? (
@@ -218,7 +219,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
         {/* ── Right ── */}
         <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
           <span className="hidden lg:flex items-center gap-1.5 text-xs text-green-600 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full font-medium">
-            <Wifi size={12} />
+            <FlatIcon name="globe" className="w-3 h-3" />
             Saved to DB
           </span>
 
@@ -226,7 +227,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
             onClick={onAddList}
             className="hidden sm:flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
           >
-            <Plus size={20} />
+            <FlatIcon name="add" className="w-5 h-5 invert" />
             Add List
           </button>
 
@@ -237,7 +238,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
             className="p-2.5 rounded-lg transition-colors hover:bg-gray-100"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/icons/icons8-logout-100.png" alt="Sign out" className="w-6 h-6 sm:w-5 sm:h-5 object-contain opacity-60" />
+            <FlatIcon name="sign-out-alt" className="w-6 h-6 sm:w-5 sm:h-5 opacity-60" />
           </button>
 
           {/* ── Settings panel ── */}
@@ -246,7 +247,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
               onClick={() => setShowSettings((v) => !v)}
               className={`p-2.5 rounded-lg transition-colors ${showSettings ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
             >
-              <Settings size={24} className="text-gray-600" />
+              <FlatIcon name="settings" className="w-6 h-6 opacity-60" />
             </button>
 
             {showSettings && (
@@ -255,8 +256,8 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
                 {/* Panel header */}
                 <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
                   <span className="font-semibold text-gray-800 text-sm">Board Settings</span>
-                  <button onClick={() => setShowSettings(false)} className="text-gray-400 hover:text-gray-600">
-                    <X size={18} />
+                  <button onClick={() => setShowSettings(false)} className="p-1 text-gray-400 hover:text-gray-600 rounded">
+                    <FlatIcon name="cross" className="w-4 h-4 opacity-60" />
                   </button>
                 </div>
 
@@ -454,7 +455,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
                         onClick={handleDeleteBoard}
                         className="w-full flex items-center gap-2 px-3 py-2.5 text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 rounded-lg transition-colors text-sm font-medium"
                       >
-                        <Trash2 size={15} />
+                        <FlatIcon name="trash" className="w-4 h-4 opacity-70" />
                         Delete this board permanently
                       </button>
                     </div>

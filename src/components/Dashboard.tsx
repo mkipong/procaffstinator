@@ -2,9 +2,10 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  X, CheckSquare, Clock, AlertTriangle, Zap,
+  CheckSquare, Clock, AlertTriangle, Zap,
   ArrowRight, Palette, Grid,
 } from 'lucide-react';
+import { FlatIcon } from '@/components/FlatIcon';
 import { Board, useBoardStore } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 
@@ -232,8 +233,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
               title="Sign out"
               className="p-2.5 rounded-lg transition-colors hover:bg-gray-100"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/icons/icons8-logout-100.png" alt="Sign out" className="w-6 h-6 sm:w-5 sm:h-5 object-contain opacity-60" />
+              <FlatIcon name="sign-out-alt" className="w-6 h-6 sm:w-5 sm:h-5 opacity-60" />
             </button>
 
             {/* ── Settings gear ── */}
@@ -242,8 +242,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
                 onClick={() => setShowSettings((v) => !v)}
                 className={`p-2.5 rounded-lg transition-colors ${showSettings ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/icons/icons8-gear-100.png" alt="Settings" className="w-7 h-7 sm:w-6 sm:h-6 object-contain" />
+                <FlatIcon name="settings" className="w-7 h-7 sm:w-6 sm:h-6 opacity-60" />
               </button>
 
               {showSettings && (
@@ -251,8 +250,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
                   {/* Panel header */}
                   <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
                     <span className="font-semibold text-gray-800 text-sm">Dashboard Settings</span>
-                    <button onClick={() => setShowSettings(false)} className="text-gray-400 hover:text-gray-600">
-                      <X size={18} />
+                    <button onClick={() => setShowSettings(false)} className="p-1 text-gray-400 hover:text-gray-600 rounded">
+                      <FlatIcon name="cross" className="w-4 h-4 opacity-60" />
                     </button>
                   </div>
 
@@ -348,10 +347,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
 
         {/* Stats row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          <StatCard icon="/icons/icons8-tasks-100.png"           label="Total Tasks"   value={totals.tasks}   />
-          <StatCard icon="/icons/icons8-last-24-hours-100.png"   label="Due Today"     value={totals.dueToday} />
-          <StatCard icon="/icons/icons8-error-100.png"           label="Overdue"       value={totals.overdue}  />
-          <StatCard icon="/icons/icons8-high-importance-100.png" label="High Priority" value={totals.high}     />
+          <StatCard icon="/icons/flaticon/star.svg"         label="Total Tasks"   value={totals.tasks}   />
+          <StatCard icon="/icons/flaticon/alarm-clock.svg" label="Due Today"     value={totals.dueToday} />
+          <StatCard icon="/icons/flaticon/exclamation.svg" label="Overdue"       value={totals.overdue}  />
+          <StatCard icon="/icons/flaticon/bolt.svg"        label="High Priority" value={totals.high}     />
         </div>
 
         {/* Boards heading */}
@@ -365,8 +364,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
               onClick={() => setShowForm(true)}
               className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors backdrop-blur-sm"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/icons/icons8-add-100.png" alt="" className="w-4 h-4 object-contain" />
+              <FlatIcon name="add" className="w-4 h-4 invert" />
               New Board
             </button>
           )}
@@ -384,7 +382,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
                 <p className="text-white font-semibold text-sm">New Board</p>
                 <button onClick={() => { setShowForm(false); setTitle(''); setNewEmoji(''); }}
                   className="p-1 text-white/60 hover:text-white rounded-lg transition-colors">
-                  <X size={16} />
+                  <FlatIcon name="cross" className="w-4 h-4 invert opacity-70" />
                 </button>
               </div>
 
@@ -429,8 +427,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
               onClick={() => setShowForm(true)}
               className="rounded-2xl border-2 border-dashed border-white/40 hover:border-white/70 hover:bg-white/10 transition-all h-44 flex flex-col items-center justify-center gap-2 text-white/60 hover:text-white/90"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/icons/icons8-add-100.png" alt="" className="w-8 h-8 object-contain opacity-60 group-hover:opacity-90" />
+              <FlatIcon name="add" className="w-8 h-8 invert opacity-60 group-hover:opacity-90" />
               <span className="text-sm font-medium">New Board</span>
             </button>
           )}

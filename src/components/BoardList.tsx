@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Plus, Trash2 } from 'lucide-react';
+import { FlatIcon } from '@/components/FlatIcon';
 import { Board, useBoardStore } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 
@@ -82,7 +82,7 @@ export const BoardList: React.FC<BoardListProps> = ({
             </div>
           </div>
           <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded transition-colors">
-            <X size={24} className="text-gray-600" />
+            <FlatIcon name="cross" className="w-6 h-6 opacity-60" />
           </button>
         </div>
 
@@ -113,7 +113,7 @@ export const BoardList: React.FC<BoardListProps> = ({
                   onClick={() => handleDeleteBoard(board.id)}
                   className="p-1 hover:bg-red-100 rounded opacity-0 group-hover:opacity-100 transition-opacity"
                 >
-                  <Trash2 size={16} className="text-red-500" />
+                  <FlatIcon name="trash" className="w-4 h-4 opacity-70" />
                 </button>
               </div>
             ))
@@ -146,7 +146,7 @@ export const BoardList: React.FC<BoardListProps> = ({
                   onClick={() => { setShowForm(false); setTitle(''); }}
                   className="p-2 hover:bg-gray-100 rounded-lg text-gray-500 transition-colors"
                 >
-                  <X size={18} />
+                  <FlatIcon name="cross" className="w-[18px] h-[18px] opacity-60" />
                 </button>
               </div>
             </form>
@@ -155,7 +155,7 @@ export const BoardList: React.FC<BoardListProps> = ({
               onClick={() => setShowForm(true)}
               className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
             >
-              <Plus size={18} />
+              <FlatIcon name="add" className="w-[18px] h-[18px] invert" />
               Create Board
             </button>
           )}

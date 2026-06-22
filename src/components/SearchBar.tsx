@@ -1,5 +1,6 @@
 import React from 'react';
-import { Search, X } from 'lucide-react';
+import { Search } from 'lucide-react';
+import { FlatIcon } from '@/components/FlatIcon';
 import { Card } from '@/lib/store';
 
 interface SearchBarProps {
@@ -43,7 +44,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ cards, onSearch }) => {
             onClick={() => handleSearch('')}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded transition-colors"
           >
-            <X size={16} className="text-gray-400" />
+            <FlatIcon name="cross" className="w-4 h-4 opacity-50" />
           </button>
         )}
       </div>
