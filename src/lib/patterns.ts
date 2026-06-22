@@ -59,13 +59,37 @@ export const PATTERNS: PatternOption[] = [
   },
 ];
 
+export interface BgImage {
+  label: string;
+  src: string;
+}
+
+export const BG_IMAGES: BgImage[] = [
+  { label: 'Peach Blush',     src: '/images/peach-blush.webp' },
+  { label: 'Sage Grain',      src: '/images/sage-grain.webp' },
+  { label: 'Midnight Coral',  src: '/images/midnight-coral.webp' },
+  { label: 'Aura Vibes',      src: '/images/aura-vibes.webp' },
+  { label: 'Garden Dream',    src: '/images/garden-dream.webp' },
+  { label: 'Pingu',           src: '/images/pingu.webp' },
+  { label: 'Tropical Garden', src: '/images/tropical-garden.jpg' },
+];
+
 export function buildBackground(color: string, pattern?: string): string {
-  const gradient = color?.startsWith('linear-gradient')
+  const isImage = color?.startsWith('url(');
+  const base = isImage
     ? color
-    : 'linear-gradient(135deg, #a855f7, #7c3aed, #4338ca)';
+    : (color?.startsWith('linear-gradient') ? color : 'linear-gradient(135deg, #a855f7, #7c3aed, #4338ca)');
 
   // undefined pattern → default bilum; 'none' → no pattern overlay
   const pat = pattern === undefined ? BILUM_PATTERN : pattern;
-  if (pat === 'none') return gradient;
-  return `${pat}, ${gradient}`;
+  if (pat === 'none') return base;
+  return `${pat}, ${base}`;
+}
+
+export function buildBackgroundStyle(color: string, pattern?: string): Record<string, string> {
+  const isImage = color?.startsWith('url(');
+  const backgroundImage = buildBackground(color, pattern);
+  return isImage
+    ? { backgroundImage, backgroundSize: 'cover', backgroundPosition: 'center' }
+    : { backgroundImage };
 }

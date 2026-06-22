@@ -5,7 +5,7 @@ import { Palette, AlignLeft, Type, Grid } from 'lucide-react';
 import { FlatIcon } from '@/components/FlatIcon';
 import { Board, useBoardStore } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
-import { PATTERNS, BILUM_PATTERN } from '@/lib/patterns';
+import { PATTERNS, BILUM_PATTERN, BG_IMAGES } from '@/lib/patterns';
 import { EmojiIconPicker, EmojiDisplay } from '@/components/EmojiIconPicker';
 
 interface BoardHeaderProps {
@@ -315,6 +315,25 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
                             </span>
                           </button>
                         ))}
+                      </div>
+                    </div>
+
+                    {/* Photos */}
+                    <div>
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Photos</p>
+                      <div className="grid grid-cols-3 gap-2">
+                        {BG_IMAGES.map((img) => {
+                          const val = `url('${img.src}')`;
+                          return (
+                            <button
+                              key={img.src}
+                              title={img.label}
+                              onClick={() => handleChangeColor(val)}
+                              className={`h-16 rounded-lg overflow-hidden transition-transform hover:scale-105 ${board.color === val ? 'ring-2 ring-offset-2 ring-gray-800' : ''}`}
+                              style={{ backgroundImage: `url('${img.src}')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                            />
+                          );
+                        })}
                       </div>
                     </div>
 

@@ -9,7 +9,7 @@ import { FlatIcon } from '@/components/FlatIcon';
 import { Board, useBoardStore } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 
-import { BILUM_PATTERN, PATTERNS, buildBackground } from '@/lib/patterns';
+import { BILUM_PATTERN, PATTERNS, BG_IMAGES, buildBackgroundStyle } from '@/lib/patterns';
 import { EmojiDisplay } from '@/components/EmojiIconPicker';
 
 // ── Dashboard appearance colours / themes (mirrors board settings) ────────────
@@ -74,12 +74,11 @@ function StatCard({ icon, label, value }: { icon: string; label: string; value: 
 }
 
 function BoardCard({ stat, onClick }: { stat: BoardStat; onClick: () => void }) {
-  const bg = buildBackground(stat.color, stat.pattern);
   return (
     <button
       onClick={onClick}
       className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-200 hover:-translate-y-1 text-left h-44"
-      style={{ backgroundImage: bg }}
+      style={buildBackgroundStyle(stat.color, stat.pattern)}
     >
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors" />
       <div className="relative h-full p-5 flex flex-col justify-between">
@@ -208,7 +207,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
   return (
     <div
       className="min-h-screen"
-      style={{ backgroundImage: buildBackground(dashSettings.color, dashSettings.pattern) }}
+      style={buildBackgroundStyle(dashSettings.color, dashSettings.pattern)}
     >
       {/* ── Top nav ── */}
       <div className="bg-white shadow-sm border-b">
@@ -293,6 +292,27 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
                             </span>
                           </button>
                         ))}
+                      </div>
+                    </div>
+
+                    {/* Photos */}
+                    <div>
+                      <p className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                        Photos
+                      </p>
+                      <div className="grid grid-cols-3 gap-2">
+                        {BG_IMAGES.map((img) => {
+                          const val = `url('${img.src}')`;
+                          return (
+                            <button
+                              key={img.src}
+                              title={img.label}
+                              onClick={() => updateDash({ color: val })}
+                              className={`h-16 rounded-lg overflow-hidden transition-transform hover:scale-105 ${dashSettings.color === val ? 'ring-2 ring-offset-2 ring-gray-800' : ''}`}
+                              style={{ backgroundImage: `url('${img.src}')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                            />
+                          );
+                        })}
                       </div>
                     </div>
 

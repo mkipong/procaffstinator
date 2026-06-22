@@ -3,7 +3,7 @@ import { FlatIcon } from '@/components/FlatIcon';
 import { Board as BoardType, List as ListType, Card as CardType, useBoardStore } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 import { BoardHeader } from '@/components/BoardHeader';
-import { buildBackground } from '@/lib/patterns';
+import { buildBackgroundStyle } from '@/lib/patterns';
 import { BoardList } from '@/components/BoardList';
 import { List } from '@/components/List';
 import { SearchBar } from '@/components/SearchBar';
@@ -70,7 +70,7 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
   return (
     <div
       className="min-h-screen overflow-x-hidden"
-      style={{ backgroundImage: buildBackground(board.color, board.pattern) }}
+      style={buildBackgroundStyle(board.color, board.pattern)}
     >
       <BoardHeader
         board={board}
