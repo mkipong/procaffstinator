@@ -230,6 +230,16 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
             Add List
           </button>
 
+          {/* ── Logout ── */}
+          <button
+            onClick={() => supabase.auth.signOut()}
+            title="Sign out"
+            className="p-2 rounded transition-colors hover:bg-gray-100"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/icons/icons8-logout-100.png" alt="Sign out" className="w-5 h-5 object-contain opacity-60 hover:opacity-100" />
+          </button>
+
           {/* ── Settings panel ── */}
           <div className="relative" ref={settingsRef}>
             <button

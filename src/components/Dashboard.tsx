@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { Board, useBoardStore } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
+
 import { BILUM_PATTERN, PATTERNS, buildBackground } from '@/lib/patterns';
 import { EmojiDisplay } from '@/components/EmojiIconPicker';
 
@@ -224,6 +225,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
               <img src="/icons/icons8-kawaii-folders-100.png" alt="" className="w-5 h-5 object-contain" />
               <span className="text-sm font-medium text-gray-600">Dashboard</span>
             </div>
+
+            {/* ── Logout ── */}
+            <button
+              onClick={() => supabase.auth.signOut()}
+              title="Sign out"
+              className="p-2 rounded transition-colors hover:bg-gray-100"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/icons/icons8-logout-100.png" alt="Sign out" className="w-5 h-5 object-contain opacity-60 hover:opacity-100" />
+            </button>
 
             {/* ── Settings gear ── */}
             <div className="relative" ref={settingsRef}>

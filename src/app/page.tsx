@@ -2,11 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { Loader, Database, Copy, Check, AlertTriangle } from 'lucide-react';
+import { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { useBoardStore, Board } from '@/lib/store';
 import { BoardPage } from '@/components/BoardPage';
 import { Dashboard } from '@/components/Dashboard';
 import { PomodoroTimer } from '@/components/PomodoroTimer';
+import { LoginPage } from '@/components/LoginPage';
 
 const SETUP_SQL = `-- Run this in your Supabase SQL Editor (app.supabase.com → SQL Editor)
 
@@ -58,6 +60,8 @@ ALTER TABLE comments DISABLE ROW LEVEL SECURITY;`;
 type DbStatus = 'checking' | 'ok' | 'tables_missing' | 'error';
 
 export default function Home() {
+  const [session,   setSession]   = useState<Session | null>(null);
+  const [authReady, setAuthReady] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [dbStatus, setDbStatus] = useState<DbStatus>('checking');
   const [dbError, setDbError] = useState('');
@@ -66,9 +70,23 @@ export default function Home() {
   const currentBoardId = useBoardStore((state) => state.currentBoardId);
   const setBoards = useBoardStore((state) => state.setBoards);
   const setCurrentBoardId = useBoardStore((state) => state.setCurrentBoardId);
+  // ── Auth session ─────────────────────────────────────────────────────────────
   useEffect(() => {
-    checkAndLoad();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setAuthReady(true);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setSession(session);
+      setAuthReady(true);
+    });
+    return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (session) checkAndLoad();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
 
   const checkAndLoad = async () => {
     setIsLoading(true);
@@ -141,6 +159,17 @@ export default function Home() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
+
+  // ── Auth gate ────────────────────────────────────────────────────────────
+  if (!authReady) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-500 to-indigo-700 flex items-center justify-center">
+        <Loader className="animate-spin text-white" size={40} />
+      </div>
+    );
+  }
+
+  if (!session) return <LoginPage />;
 
   // ── Loading ──────────────────────────────────────────────────────────────
   if (isLoading) {
