@@ -212,7 +212,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-2 sm:gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/icons/icons8-kawaii-coffee-100.png" alt="" className="w-10 h-10 sm:w-9 sm:h-9 flex-shrink-0" />
+          <img src="/branding/ProCaffstinator/13.0.png" alt="" className="w-10 h-10 sm:w-9 sm:h-9 flex-shrink-0 object-contain" />
           <div>
             <p className="font-bold text-gray-900 leading-tight text-sm sm:text-base">ProCaffstinator</p>
             <p className="text-xs text-gray-400 leading-tight hidden sm:block">Procrastinate Productively</p>
@@ -220,8 +220,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
 
           <div className="ml-auto flex items-center gap-1 sm:gap-2">
             <div className="hidden sm:flex items-center gap-1.5 text-gray-500 mr-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/icons/icons8-kawaii-folders-100.png" alt="" className="w-5 h-5 object-contain" />
+              <FlatIcon name="home" className="w-5 h-5 text-gray-500" />
               <span className="text-sm font-medium text-gray-600">Dashboard</span>
             </div>
 

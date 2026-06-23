@@ -175,7 +175,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
           {/* App brand */}
           <div className="flex items-center gap-1.5 sm:gap-2 pr-2 sm:pr-3 border-r border-gray-200 flex-shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/icons/icons8-kawaii-coffee-100.png" alt="ProCaffstinator" className="w-9 h-9 sm:w-8 sm:h-8" />
+            <img src="/branding/ProCaffstinator/13.0.png" alt="ProCaffstinator" className="w-9 h-9 sm:w-8 sm:h-8 object-contain" />
             <span className="font-bold text-gray-800 text-sm hidden md:block tracking-tight">ProCaffstinator</span>
           </div>
 
