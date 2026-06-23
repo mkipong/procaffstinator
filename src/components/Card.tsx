@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { MessageSquare, Tag } from 'lucide-react';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { FlatIcon } from '@/components/FlatIcon';
 import { Card as CardType } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
@@ -32,6 +34,20 @@ export const Card: React.FC<CardProps> = ({ card, onEdit, fontCard, fontBody }) 
   const [isHovered, setIsHovered] = useState(false);
   const deleteCard = useBoardStore((state) => state.deleteCard);
 
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: card.id, data: { type: 'card' } });
+
+  const dragStyle = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   const handleDelete = async () => {
     if (window.confirm('Delete this card?')) {
       await supabase.from('cards').delete().eq('id', card.id);
@@ -46,10 +62,13 @@ export const Card: React.FC<CardProps> = ({ card, onEdit, fontCard, fontBody }) 
 
   return (
     <div
-      className="bg-white rounded-lg p-3 mb-2 shadow-sm hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing"
+      ref={setNodeRef}
+      style={dragStyle}
+      {...attributes}
+      {...listeners}
+      className={`bg-white rounded-lg p-3 mb-2 shadow-sm hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing ${isDragging ? 'opacity-30 shadow-lg' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      draggable
     >
       {/* Priority strip at top */}
       {card.priority && (

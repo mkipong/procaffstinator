@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSortable, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { FlatIcon } from '@/components/FlatIcon';
 import { List as ListType, Card as CardType, useBoardStore } from '@/lib/store';
 import { Card } from './Card';
@@ -19,6 +21,20 @@ export const List: React.FC<ListProps> = ({ list, onEditCard, fontHeading, fontC
   const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
   const addCard = useBoardStore((state) => state.addCard);
   const deleteList = useBoardStore((state) => state.deleteList);
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: list.id, data: { type: 'list' } });
+
+  const dragStyle = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   const handleAddCard = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,23 +65,32 @@ export const List: React.FC<ListProps> = ({ list, onEditCard, fontHeading, fontC
 
   return (
     <>
-      <div className="list bg-gray-100 rounded-lg p-3 min-h-96 w-[17rem] sm:w-80 flex-shrink-0 flex flex-col">
-        <div className="flex justify-between items-center mb-3">
-          <h2 className="font-bold text-gray-900" style={{ fontFamily: fontHeading }}>{list.title}</h2>
+      <div
+        ref={setNodeRef}
+        style={dragStyle}
+        {...attributes}
+        className={`list bg-gray-100 rounded-lg p-3 min-h-96 w-[17rem] sm:w-80 flex-shrink-0 flex flex-col ${isDragging ? 'opacity-50 shadow-2xl' : ''}`}
+      >
+        {/* List header — drag handle for the whole list */}
+        <div
+          {...listeners}
+          className="flex justify-between items-center mb-3 cursor-grab active:cursor-grabbing"
+        >
+          <h2 className="font-bold text-gray-900 select-none" style={{ fontFamily: fontHeading }}>{list.title}</h2>
           <button
-            onClick={handleDeleteList}
-            className="p-1 hover:bg-red-100 rounded transition-colors"
+            onClick={(e) => { e.stopPropagation(); handleDeleteList(); }}
+            className="p-1 hover:bg-red-100 rounded transition-colors cursor-pointer"
           >
             <FlatIcon name="trash" className="w-4 h-4 text-red-500" />
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto mb-2">
-          {list.cards?.map((card) => (
-            <div key={card.id} onClick={() => setSelectedCard(card)}>
-              <Card card={card} onEdit={onEditCard} fontCard={fontCard} fontBody={fontBody} />
-            </div>
-          ))}
+          <SortableContext items={list.cards?.map((c) => c.id) ?? []} strategy={verticalListSortingStrategy}>
+            {list.cards?.map((card) => (
+              <Card key={card.id} card={card} onEdit={(c) => setSelectedCard(c)} fontCard={fontCard} fontBody={fontBody} />
+            ))}
+          </SortableContext>
         </div>
 
         {showAddCard ? (

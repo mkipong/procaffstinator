@@ -53,6 +53,8 @@ interface BoardStore {
   updateCard: (id: string, updates: Partial<Card>) => void;
   deleteCard: (id: string) => void;
   moveCard: (cardId: string, newListId: string, newPosition: number) => void;
+  reorderLists: (boardId: string, lists: List[]) => void;
+  reorderCards: (listId: string, cards: Card[]) => void;
 }
 
 export const useBoardStore = create<BoardStore>((set) => ({
@@ -165,4 +167,17 @@ export const useBoardStore = create<BoardStore>((set) => ({
 
       return { boards: newBoards };
     }),
+
+  reorderLists: (boardId, lists) =>
+    set((state) => ({
+      boards: state.boards.map((b) => (b.id === boardId ? { ...b, lists } : b)),
+    })),
+
+  reorderCards: (listId, cards) =>
+    set((state) => ({
+      boards: state.boards.map((b) => ({
+        ...b,
+        lists: b.lists?.map((l) => (l.id === listId ? { ...l, cards } : l)) ?? [],
+      })),
+    })),
 }));
