@@ -167,7 +167,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
   ];
 
   return (
-    <div className="bg-white shadow-sm border-b">
+    <div className="bg-[#f0f0f0] border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-4 flex justify-between items-center gap-2">
 
         {/* ── Left ── */}

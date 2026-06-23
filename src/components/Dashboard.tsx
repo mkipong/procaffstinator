@@ -209,7 +209,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
       style={buildBackgroundStyle(dashSettings.color, dashSettings.pattern)}
     >
       {/* ── Top nav ── */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-[#f0f0f0] border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-2 sm:gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/branding/ProCaffstinator/13.0.png" alt="" className="w-10 h-10 sm:w-9 sm:h-9 flex-shrink-0 object-contain" />
