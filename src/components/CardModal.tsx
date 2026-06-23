@@ -24,19 +24,49 @@ const PRIORITY_OPTIONS: { value: 'high' | 'medium' | 'low'; label: string; cls: 
   { value: 'low',    label: 'Low',    cls: 'bg-green-100 text-green-700 border-green-300 hover:bg-green-200' },
 ];
 
+const STATUS_OPTIONS: { value: CardType['status']; label: string; cls: string }[] = [
+  { value: 'not_started', label: 'Not Started', cls: 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200' },
+  { value: 'in_progress', label: 'In Progress', cls: 'bg-blue-100 text-blue-700 border-blue-300 hover:bg-blue-200' },
+  { value: 'on_hold',     label: 'On Hold',     cls: 'bg-amber-100 text-amber-700 border-amber-300 hover:bg-amber-200' },
+  { value: 'blocked',     label: 'Blocked',     cls: 'bg-red-100 text-red-700 border-red-300 hover:bg-red-200' },
+  { value: 'cancelled',   label: 'Cancelled',   cls: 'bg-gray-200 text-gray-500 border-gray-400 hover:bg-gray-300' },
+  { value: 'completed',   label: 'Completed',   cls: 'bg-green-100 text-green-700 border-green-300 hover:bg-green-200' },
+];
+
+const RECURRING_OPTIONS: { value: CardType['recurring']; label: string }[] = [
+  { value: 'none',    label: 'None'    },
+  { value: 'daily',   label: 'Daily'   },
+  { value: 'weekly',  label: 'Weekly'  },
+  { value: 'monthly', label: 'Monthly' },
+];
+
+function nextDueDate(current: string, recurring: string): string {
+  const d = new Date(current);
+  if (recurring === 'daily')   d.setDate(d.getDate() + 1);
+  if (recurring === 'weekly')  d.setDate(d.getDate() + 7);
+  if (recurring === 'monthly') d.setMonth(d.getMonth() + 1);
+  return d.toISOString().split('T')[0];
+}
+
 export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fontCard, fontBody }) => {
-  const [title, setTitle] = useState(card.title);
+  const [title,       setTitle]       = useState(card.title);
   const [description, setDescription] = useState(card.description || '');
-  const [label, setLabel] = useState(card.label || '');
-  const [dueDate, setDueDate] = useState(card.due_date || '');
-  const [priority, setPriority] = useState<'high' | 'medium' | 'low'>(card.priority || 'medium');
-  const [newComment, setNewComment] = useState('');
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [label,       setLabel]       = useState(card.label || '');
+  const [dueDate,     setDueDate]     = useState(card.due_date || '');
+  const [priority,    setPriority]    = useState<'high' | 'medium' | 'low'>(card.priority || 'medium');
+  const [status,      setStatus]      = useState<CardType['status']>(card.status || 'not_started');
+  const [progress,    setProgress]    = useState<number>(card.progress ?? 0);
+  const [recurring,   setRecurring]   = useState<CardType['recurring']>(card.recurring || 'none');
+  const [newComment,  setNewComment]  = useState('');
+  const [comments,    setComments]    = useState<Comment[]>([]);
+  const [isLoading,   setIsLoading]   = useState(false);
+
   const updateCard = useBoardStore((state) => state.updateCard);
+  const addCard    = useBoardStore((state) => state.addCard);
 
   React.useEffect(() => {
     loadComments();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadComments = async () => {
@@ -51,7 +81,6 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
   const handleAddComment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newComment.trim()) return;
-
     setIsLoading(true);
     const comment = {
       id: Math.random().toString(36).substr(2, 9),
@@ -59,7 +88,6 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
       text: newComment,
       created_at: new Date().toISOString(),
     };
-
     await supabase.from('comments').insert([comment]);
     setComments([...comments, comment as Comment]);
     setNewComment('');
@@ -70,29 +98,48 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
     setIsLoading(true);
     const updated: CardType = {
       ...card,
-      title,
-      description,
-      label,
-      priority,
+      title, description, label, priority, status, progress, recurring,
       due_date: dueDate || undefined,
       updated_at: new Date().toISOString(),
     };
 
     await supabase.from('cards').update(updated).eq('id', card.id);
     updateCard(card.id, updated);
+
+    // Recurring: completing a recurring card auto-spawns the next one
+    const wasNotCompleted = card.status !== 'completed';
+    if (status === 'completed' && wasNotCompleted && recurring !== 'none' && dueDate) {
+      const nextCard: CardType = {
+        id: Math.random().toString(36).substr(2, 9),
+        list_id: card.list_id,
+        title: card.title,
+        description: card.description,
+        position: card.position + 1,
+        due_date: nextDueDate(dueDate, recurring!),
+        label: card.label,
+        priority: card.priority,
+        status: 'not_started',
+        progress: 0,
+        recurring,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+      const { data } = await supabase.from('cards').insert([nextCard]).select();
+      if (data?.[0]) addCard(data[0] as CardType);
+    }
+
     onSave(updated);
     onClose();
     setIsLoading(false);
   };
 
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  };
+  const formatDate = (dateStr: string) =>
+    new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end sm:items-center justify-center z-50">
       <div className="bg-white rounded-t-2xl sm:rounded-lg w-full max-w-2xl max-h-[92vh] sm:max-h-screen overflow-y-auto shadow-xl">
+
         {/* Header */}
         <div className="sticky top-0 flex justify-between items-center p-4 sm:p-6 border-b bg-white">
           <h2 className="text-lg sm:text-xl font-bold text-gray-900">Card Details</h2>
@@ -102,6 +149,7 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
         </div>
 
         <div className="p-4 sm:p-6 space-y-5 sm:space-y-6">
+
           {/* Title */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Title</label>
@@ -121,10 +169,29 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Add a more detailed description..."
-              rows={4}
+              rows={3}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               style={{ fontFamily: fontBody }}
             />
+          </div>
+
+          {/* Status */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+            <div className="grid grid-cols-3 gap-2">
+              {STATUS_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setStatus(opt.value)}
+                  className={`py-2 px-2 rounded-lg border text-xs font-semibold transition-colors ${opt.cls} ${
+                    status === opt.value ? 'ring-2 ring-offset-1 ring-gray-500' : 'opacity-70'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Priority */}
@@ -149,7 +216,29 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
             </div>
           </div>
 
-          {/* Due Date & Label */}
+          {/* Progress */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Progress — <span className="font-bold text-blue-600">{progress}%</span>
+            </label>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={5}
+              value={progress}
+              onChange={(e) => setProgress(Number(e.target.value))}
+              className="w-full accent-blue-500"
+            />
+            <div className="h-2 bg-gray-200 rounded-full mt-1 overflow-hidden">
+              <div
+                className={`h-full rounded-full ${progress === 100 ? 'bg-green-500' : progress >= 50 ? 'bg-blue-500' : 'bg-amber-400'}`}
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Due Date, Label, Recurring */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
@@ -178,14 +267,41 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
             </div>
           </div>
 
+          {/* Recurring */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              ↻ Recurring Task
+            </label>
+            <div className="flex gap-2">
+              {RECURRING_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setRecurring(opt.value)}
+                  className={`flex-1 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                    recurring === opt.value
+                      ? 'bg-purple-100 text-purple-700 border-purple-300 ring-2 ring-offset-1 ring-purple-300'
+                      : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+            {recurring !== 'none' && dueDate && (
+              <p className="text-xs text-purple-600 mt-1.5">
+                When completed, a new card will auto-appear due {nextDueDate(dueDate, recurring!)}.
+              </p>
+            )}
+          </div>
+
           {/* Comments */}
           <div className="border-t pt-6">
             <h3 className="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <MessageSquare size={16} />
               Comments ({comments.length})
             </h3>
-
-            <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
+            <div className="space-y-3 mb-4 max-h-48 overflow-y-auto">
               {comments.length === 0 ? (
                 <p className="text-sm text-gray-500">No comments yet. Add one!</p>
               ) : (
@@ -197,7 +313,6 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
                 ))
               )}
             </div>
-
             <form onSubmit={handleAddComment} className="flex gap-2">
               <input
                 type="text"

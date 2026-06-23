@@ -174,6 +174,15 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
   const allCards = board.lists?.flatMap((list) => list.cards || []) || [];
   void filteredCards;
 
+  const todayStr = new Date().toISOString().split('T')[0];
+  const boardTotals = {
+    total:      allCards.length,
+    inProgress: allCards.filter((c) => c.status === 'in_progress').length,
+    overdue:    allCards.filter((c) => c.due_date && c.due_date < todayStr && c.status !== 'completed' && c.status !== 'cancelled').length,
+    completed:  allCards.filter((c) => c.status === 'completed').length,
+    progress:   allCards.length > 0 ? Math.round((allCards.filter((c) => c.status === 'completed').length / allCards.length) * 100) : 0,
+  };
+
   return (
     <div
       className="min-h-screen overflow-x-hidden"
@@ -193,6 +202,26 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
           onClose={() => setShowBoardList(false)}
           onCreateBoard={() => {}}
         />
+      )}
+
+      {/* Board stats bar */}
+      {allCards.length > 0 && (
+        <div className="mx-3 sm:mx-6 mt-3 sm:mt-4 bg-white/15 backdrop-blur-sm rounded-xl px-4 py-3 flex flex-wrap gap-x-5 gap-y-2 items-center text-white text-xs font-medium">
+          <span className="opacity-60 hidden sm:inline">{new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-white/60 inline-block" />{boardTotals.total} Tasks</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-blue-300 inline-block" />{boardTotals.inProgress} In Progress</span>
+          {boardTotals.overdue > 0 && (
+            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-red-400 inline-block" />{boardTotals.overdue} Overdue</span>
+          )}
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-300 inline-block" />{boardTotals.completed} Done</span>
+          <div className="flex items-center gap-2 ml-auto">
+            <span className="opacity-70">Progress</span>
+            <div className="w-24 h-1.5 bg-white/20 rounded-full overflow-hidden">
+              <div className={`h-full rounded-full ${boardTotals.progress === 100 ? 'bg-green-400' : 'bg-blue-300'}`} style={{ width: `${boardTotals.progress}%` }} />
+            </div>
+            <span className="font-bold">{boardTotals.progress}%</span>
+          </div>
+        </div>
       )}
 
       <div className="p-3 sm:p-6">

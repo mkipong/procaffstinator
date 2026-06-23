@@ -9,6 +9,9 @@ export interface Card {
   due_date?: string;
   label?: string;
   priority?: 'high' | 'medium' | 'low';
+  status?: 'not_started' | 'in_progress' | 'on_hold' | 'blocked' | 'cancelled' | 'completed';
+  progress?: number;
+  recurring?: 'none' | 'daily' | 'weekly' | 'monthly';
   created_at: string;
   updated_at: string;
 }

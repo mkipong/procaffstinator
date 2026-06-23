@@ -119,6 +119,7 @@ const QUICK_EMOJIS = ['⭐','💼','📚','🎨','🏠','💪','✈️','🎯','
 interface BoardStat {
   id: string; title: string; color: string; pattern?: string; emoji?: string;
   listCount: number; totalCards: number; overdueCards: number; dueToday: number; highPriority: number;
+  inProgress: number; blocked: number; completed: number;
 }
 
 interface DashboardProps {
@@ -166,15 +167,26 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
       id: board.id, title: board.title, color: board.color, pattern: board.pattern, emoji: board.emoji,
       listCount: board.lists?.length || 0,
       totalCards: cards.length,
-      overdueCards: cards.filter((c) => c.due_date && c.due_date < todayStr).length,
+      overdueCards: cards.filter((c) => c.due_date && c.due_date < todayStr && c.status !== 'completed' && c.status !== 'cancelled').length,
       dueToday:     cards.filter((c) => c.due_date === todayStr).length,
       highPriority: cards.filter((c) => c.priority === 'high').length,
+      inProgress:   cards.filter((c) => c.status === 'in_progress').length,
+      blocked:      cards.filter((c) => c.status === 'blocked').length,
+      completed:    cards.filter((c) => c.status === 'completed').length,
     };
   });
 
   const totals = boardStats.reduce(
-    (acc, b) => ({ tasks: acc.tasks + b.totalCards, overdue: acc.overdue + b.overdueCards, dueToday: acc.dueToday + b.dueToday, high: acc.high + b.highPriority }),
-    { tasks: 0, overdue: 0, dueToday: 0, high: 0 }
+    (acc, b) => ({
+      tasks:      acc.tasks      + b.totalCards,
+      overdue:    acc.overdue    + b.overdueCards,
+      dueToday:   acc.dueToday   + b.dueToday,
+      high:       acc.high       + b.highPriority,
+      inProgress: acc.inProgress + b.inProgress,
+      blocked:    acc.blocked    + b.blocked,
+      completed:  acc.completed  + b.completed,
+    }),
+    { tasks: 0, overdue: 0, dueToday: 0, high: 0, inProgress: 0, blocked: 0, completed: 0 }
   );
 
   const handleCreate = async (e?: React.FormEvent) => {
@@ -360,11 +372,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
 
         {/* Stats row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          <StatCard icon="star"         label="Total Tasks"   value={totals.tasks}   />
-          <StatCard icon="alarm-clock" label="Due Today"     value={totals.dueToday} />
-          <StatCard icon="exclamation" label="Overdue"       value={totals.overdue}  />
-          <StatCard icon="bolt"        label="High Priority" value={totals.high}     />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-10">
+          <StatCard icon="star"         label="Total Tasks"  value={totals.tasks}      />
+          <StatCard icon="bolt"         label="In Progress"  value={totals.inProgress} />
+          <StatCard icon="alarm-clock"  label="Due Today"    value={totals.dueToday}   />
+          <StatCard icon="exclamation"  label="Overdue"      value={totals.overdue}    />
+          <StatCard icon="cross"        label="Blocked"      value={totals.blocked}    />
+          <StatCard icon="check"        label="Completed"    value={totals.completed}  />
         </div>
 
         {/* Boards heading */}
