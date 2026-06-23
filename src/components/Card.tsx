@@ -73,7 +73,7 @@ export const Card: React.FC<CardProps> = ({ card, onEdit, fontCard, fontBody }) 
             onClick={handleDelete}
             className="p-1 hover:bg-red-100 rounded transition-colors"
           >
-            <FlatIcon name="trash" className="w-3.5 h-3.5 opacity-70" />
+            <FlatIcon name="trash" className="w-3.5 h-3.5 text-red-500" />
           </button>
         )}
       </div>
@@ -86,7 +86,7 @@ export const Card: React.FC<CardProps> = ({ card, onEdit, fontCard, fontBody }) 
         )}
         {card.due_date && (
           <div className={`flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${dueDateStyle(card.due_date)}`}>
-            <FlatIcon name="calendar" className="w-3 h-3 opacity-70" />
+            <FlatIcon name="calendar" className="w-3 h-3" />
             <span>{formatDate(card.due_date)}</span>
           </div>
         )}

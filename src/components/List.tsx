@@ -56,7 +56,7 @@ export const List: React.FC<ListProps> = ({ list, onEditCard, fontHeading, fontC
             onClick={handleDeleteList}
             className="p-1 hover:bg-red-100 rounded transition-colors"
           >
-            <FlatIcon name="trash" className="w-4 h-4 opacity-70" />
+            <FlatIcon name="trash" className="w-4 h-4 text-red-500" />
           </button>
         </div>
 
@@ -99,7 +99,7 @@ export const List: React.FC<ListProps> = ({ list, onEditCard, fontHeading, fontC
             onClick={() => setShowAddCard(true)}
             className="w-full flex items-center gap-2 text-gray-600 hover:text-gray-900 p-2 rounded hover:bg-gray-200 transition-colors text-sm"
           >
-            <FlatIcon name="add" className="w-4 h-4 opacity-60" />
+            <FlatIcon name="add" className="w-4 h-4 text-gray-600" />
             Add a card
           </button>
         )}

@@ -82,7 +82,7 @@ export const BoardList: React.FC<BoardListProps> = ({
             </div>
           </div>
           <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded transition-colors">
-            <FlatIcon name="cross" className="w-6 h-6 opacity-60" />
+            <FlatIcon name="cross" className="w-6 h-6 text-gray-600" />
           </button>
         </div>
 
@@ -113,7 +113,7 @@ export const BoardList: React.FC<BoardListProps> = ({
                   onClick={() => handleDeleteBoard(board.id)}
                   className="p-1 hover:bg-red-100 rounded opacity-0 group-hover:opacity-100 transition-opacity"
                 >
-                  <FlatIcon name="trash" className="w-4 h-4 opacity-70" />
+                  <FlatIcon name="trash" className="w-4 h-4 text-red-500" />
                 </button>
               </div>
             ))
@@ -146,7 +146,7 @@ export const BoardList: React.FC<BoardListProps> = ({
                   onClick={() => { setShowForm(false); setTitle(''); }}
                   className="p-2 hover:bg-gray-100 rounded-lg text-gray-500 transition-colors"
                 >
-                  <FlatIcon name="cross" className="w-[18px] h-[18px] opacity-60" />
+                  <FlatIcon name="cross" className="w-[18px] h-[18px] text-gray-500" />
                 </button>
               </div>
             </form>
@@ -155,7 +155,7 @@ export const BoardList: React.FC<BoardListProps> = ({
               onClick={() => setShowForm(true)}
               className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
             >
-              <FlatIcon name="add" className="w-[18px] h-[18px] invert" />
+              <FlatIcon name="add" className="w-[18px] h-[18px] text-white" />
               Create Board
             </button>
           )}

@@ -139,7 +139,7 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
                   onClick={cancelAddList}
                   className="p-2 text-white hover:bg-white/20 rounded-lg transition-colors"
                 >
-                  <FlatIcon name="cross" className="w-[18px] h-[18px] invert" />
+                  <FlatIcon name="cross" className="w-[18px] h-[18px] text-white" />
                 </button>
               </div>
             </form>
@@ -148,7 +148,7 @@ export const BoardPage: React.FC<BoardPageProps> = ({ board }) => {
               onClick={openAddList}
               className="flex-shrink-0 w-[17rem] sm:w-80 h-12 bg-white/20 hover:bg-white/30 text-white rounded-xl flex items-center justify-center gap-2 font-medium text-sm transition-all"
             >
-              <FlatIcon name="add" className="w-[18px] h-[18px] invert" />
+              <FlatIcon name="add" className="w-[18px] h-[18px] text-white" />
               Add another list
             </button>
           )}

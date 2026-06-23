@@ -44,7 +44,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ cards, onSearch }) => {
             onClick={() => handleSearch('')}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded transition-colors"
           >
-            <FlatIcon name="cross" className="w-4 h-4 opacity-50" />
+            <FlatIcon name="cross" className="w-4 h-4 text-gray-400" />
           </button>
         )}
       </div>

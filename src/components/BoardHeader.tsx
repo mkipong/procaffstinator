@@ -185,11 +185,11 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
             title="Back to Dashboard"
             className="p-2.5 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
           >
-            <FlatIcon name="home" className="w-5 h-5 opacity-60" />
+            <FlatIcon name="home" className="w-5 h-5 text-gray-500" />
           </button>
 
           <button onClick={onShowBoardList} className="p-2.5 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0">
-            <FlatIcon name="menu-burger" className="w-5 h-5 opacity-60" />
+            <FlatIcon name="menu-burger" className="w-5 h-5 text-gray-500" />
           </button>
 
           {editingTitle ? (
@@ -219,7 +219,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
         {/* ── Right ── */}
         <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
           <span className="hidden lg:flex items-center gap-1.5 text-xs text-green-600 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full font-medium">
-            <FlatIcon name="globe" className="w-3 h-3" />
+            <FlatIcon name="globe" className="w-3 h-3 text-green-600" />
             Saved to DB
           </span>
 
@@ -227,7 +227,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
             onClick={onAddList}
             className="hidden sm:flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
           >
-            <FlatIcon name="add" className="w-5 h-5 invert" />
+            <FlatIcon name="add" className="w-5 h-5 text-white" />
             Add List
           </button>
 
@@ -238,7 +238,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
             className="p-2.5 rounded-lg transition-colors hover:bg-gray-100"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <FlatIcon name="sign-out-alt" className="w-6 h-6 sm:w-5 sm:h-5 opacity-60" />
+            <FlatIcon name="sign-out-alt" className="w-6 h-6 sm:w-5 sm:h-5 text-gray-400" />
           </button>
 
           {/* ── Settings panel ── */}
@@ -247,7 +247,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
               onClick={() => setShowSettings((v) => !v)}
               className={`p-2.5 rounded-lg transition-colors ${showSettings ? 'bg-gray-200' : 'hover:bg-gray-100'}`}
             >
-              <FlatIcon name="settings" className="w-6 h-6 opacity-60" />
+              <FlatIcon name="settings" className="w-6 h-6 text-gray-600" />
             </button>
 
             {showSettings && (
@@ -257,7 +257,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
                 <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
                   <span className="font-semibold text-gray-800 text-sm">Board Settings</span>
                   <button onClick={() => setShowSettings(false)} className="p-1 text-gray-400 hover:text-gray-600 rounded">
-                    <FlatIcon name="cross" className="w-4 h-4 opacity-60" />
+                    <FlatIcon name="cross" className="w-4 h-4 text-gray-400" />
                   </button>
                 </div>
 
@@ -474,7 +474,7 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ board, onAddList, onSh
                         onClick={handleDeleteBoard}
                         className="w-full flex items-center gap-2 px-3 py-2.5 text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 rounded-lg transition-colors text-sm font-medium"
                       >
-                        <FlatIcon name="trash" className="w-4 h-4 opacity-70" />
+                        <FlatIcon name="trash" className="w-4 h-4 text-red-500" />
                         Delete this board permanently
                       </button>
                     </div>

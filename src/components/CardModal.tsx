@@ -97,7 +97,7 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
         <div className="sticky top-0 flex justify-between items-center p-4 sm:p-6 border-b bg-white">
           <h2 className="text-lg sm:text-xl font-bold text-gray-900">Card Details</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <FlatIcon name="cross" className="w-6 h-6 opacity-60" />
+            <FlatIcon name="cross" className="w-6 h-6 text-gray-600" />
           </button>
         </div>
 
@@ -130,7 +130,7 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
           {/* Priority */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-              <FlatIcon name="exclamation" className="w-4 h-4 opacity-60" />
+              <FlatIcon name="exclamation" className="w-4 h-4 text-gray-500" />
               Priority
             </label>
             <div className="flex gap-2">
@@ -153,7 +153,7 @@ export const CardModal: React.FC<CardModalProps> = ({ card, onClose, onSave, fon
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                <FlatIcon name="calendar" className="w-4 h-4 opacity-60" />
+                <FlatIcon name="calendar" className="w-4 h-4 text-gray-500" />
                 Due Date
               </label>
               <input
