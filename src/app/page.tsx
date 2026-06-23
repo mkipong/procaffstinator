@@ -8,7 +8,7 @@ import { useBoardStore, Board } from '@/lib/store';
 import { BoardPage } from '@/components/BoardPage';
 import { Dashboard } from '@/components/Dashboard';
 import { PomodoroTimer } from '@/components/PomodoroTimer';
-import { LoginPage } from '@/components/LoginPage';
+import { LandingPage } from '@/components/LandingPage';
 
 const SETUP_SQL = `-- Run this in your Supabase SQL Editor (app.supabase.com → SQL Editor)
 
@@ -169,7 +169,7 @@ export default function Home() {
     );
   }
 
-  if (!session) return <LoginPage />;
+  if (!session) return <LandingPage />;
 
   // ── Loading ──────────────────────────────────────────────────────────────
   if (isLoading) {

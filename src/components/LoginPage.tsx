@@ -31,7 +31,7 @@ export const LoginPage: React.FC = () => {
         {/* Logo */}
         <div className="text-center mb-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/icons/icons8-kawaii-coffee-100.png" alt="" className="w-20 h-20 mx-auto mb-3 drop-shadow-lg" />
+          <img src="/branding/ProCaffstinator/13.0.png" alt="" className="w-20 h-20 mx-auto mb-3 object-contain drop-shadow-lg" />
           <h1 className="text-white font-bold text-3xl tracking-tight drop-shadow">ProCaffstinator</h1>
           <p className="text-white/60 text-sm mt-1">Procrastinate Productively ☕</p>
         </div>
