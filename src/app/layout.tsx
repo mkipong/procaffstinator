@@ -8,7 +8,9 @@ export const metadata: Metadata = {
   title: 'ProCaffstinator - Procrastinate Productively',
   description: "Procrastinate productively. Manage your tasks while pretending you're not procrastinating.",
   icons: {
-    icon: '/icons/icons8-schedule-100.png',
+    icon: '/branding/ProCaffstinator/13.0.png',
+    shortcut: '/branding/ProCaffstinator/13.0.png',
+    apple: '/branding/ProCaffstinator/13.0.png',
   },
 };
 

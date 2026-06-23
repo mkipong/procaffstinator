@@ -106,7 +106,7 @@ const AuthForm: React.FC<{
         {/* Logo */}
         <div className="text-center mb-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/branding/ProCaffstinator/13.0.png" alt="" className="w-20 h-20 mx-auto mb-3 object-contain drop-shadow-lg" />
+          <img src="/branding/ProCaffstinator/12.png" alt="" className="w-20 h-20 mx-auto mb-3 object-contain drop-shadow-lg" />
           <h1 className="text-white font-bold text-3xl tracking-tight drop-shadow">ProCaffstinator</h1>
           <p className="text-white/60 text-sm mt-1">Procrastinate Productively</p>
         </div>
@@ -242,10 +242,9 @@ export const LandingPage: React.FC = () => {
       {/* ── Navbar ── */}
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/branding/ProCaffstinator/13.0.png" alt="" className="w-9 h-9 object-contain" />
-            <span className="font-bold text-gray-900 text-lg tracking-tight">ProCaffstinator</span>
+            <img src="/branding/ProCaffstinator/12.png" alt="ProCaffstinator" className="h-11 w-auto object-contain" />
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             <button
@@ -277,7 +276,7 @@ export const LandingPage: React.FC = () => {
         <div className="relative max-w-3xl mx-auto text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/branding/ProCaffstinator/13.0.png"
+            src="/branding/ProCaffstinator/12.png"
             alt="ProCaffstinator"
             className="w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-6 object-contain drop-shadow-2xl"
           />
@@ -382,7 +381,7 @@ export const LandingPage: React.FC = () => {
       >
         <div className="max-w-2xl mx-auto text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/branding/ProCaffstinator/13.0.png" alt="" className="w-16 h-16 mx-auto mb-5 object-contain drop-shadow-xl" />
+          <img src="/branding/ProCaffstinator/12.png" alt="" className="w-16 h-16 mx-auto mb-5 object-contain drop-shadow-xl" />
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
             Ready to get (a little) more organised?
           </h2>
@@ -409,10 +408,9 @@ export const LandingPage: React.FC = () => {
       {/* ── Footer ── */}
       <footer className="bg-gray-900 text-gray-400 py-8 px-4">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/branding/ProCaffstinator/13.0.png" alt="" className="w-6 h-6 object-contain opacity-60" />
-            <span className="font-semibold text-gray-300">ProCaffstinator</span>
+            <img src="/branding/ProCaffstinator/12.png" alt="ProCaffstinator" className="h-8 w-auto object-contain opacity-60" />
           </div>
           <p className="text-gray-500 text-xs">Procrastinate Productively · Built with Next.js + Supabase</p>
           <div className="flex gap-4 text-xs">

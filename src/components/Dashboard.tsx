@@ -212,11 +212,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectBoard }) => {
       <div className="bg-[#f0f0f0] border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-2 sm:gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/branding/ProCaffstinator/13.0.png" alt="" className="w-10 h-10 sm:w-9 sm:h-9 flex-shrink-0 object-contain" />
-          <div>
-            <p className="font-bold text-gray-900 leading-tight text-sm sm:text-base">ProCaffstinator</p>
-            <p className="text-xs text-gray-400 leading-tight hidden sm:block">Procrastinate Productively</p>
-          </div>
+          <img src="/branding/ProCaffstinator/12.png" alt="ProCaffstinator" className="h-12 w-auto flex-shrink-0 object-contain" />
 
           <div className="ml-auto flex items-center gap-1 sm:gap-2">
             <div className="hidden sm:flex items-center gap-1.5 text-gray-500 mr-2">
